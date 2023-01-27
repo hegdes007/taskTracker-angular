@@ -24,6 +24,9 @@ export class HeaderComponent implements OnInit {
   }
 
   hasRoute(route: string) {
+    if (this.router.url !== route) {
+      this.uiService.showAddTask = false;
+    }
     return this.router.url === route;
   }
 }

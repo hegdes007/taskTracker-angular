@@ -5,4 +5,10 @@
   (onDeleteTask)="delteTask(task)"
   (onToggleReminder)="toggleReminder(task)"
 ></app-task-item>
+<h3
+  *ngIf="tasks.length === 0"
+  [ngStyle]="{ 'text-align': 'center', border: '3px double' }"
+>
+  No due tasks
+</h3>
 <app-footer *ngIf="hasRoute('/')"></app-footer>

@@ -1,0 +1,18 @@
+h2,
+h4 {
+  margin: 5px;
+  text-align: center;
+}
+
+h2 {
+  border: 3px double;
+}
+.complete {
+  background-color: rgba(144, 238, 144, 0.197);
+  border: 2px solid green;
+}
+
+.overDue {
+  background-color: rgba(238, 144, 144, 0.197);
+  border: 2px solid red;
+}

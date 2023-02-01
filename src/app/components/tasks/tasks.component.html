@@ -4,11 +4,11 @@
   [task]="task"
   (onDeleteTask)="delteTask(task)"
   (onToggleReminder)="toggleReminder(task)"
+  (onCompleteTask)="completeTask(task)"
 ></app-task-item>
-<h3
-  *ngIf="tasks.length === 0"
-  [ngStyle]="{ 'text-align': 'center', border: '3px double' }"
->
-  No due tasks
-</h3>
+<h2 *ngIf="tasks.length === 0">
+  {{ nodue | titlecase }}
+</h2>
+<h4 class="complete">Completed tasks: {{ completedCount }}</h4>
+<h4 class="overDue">Overdue tasks: {{ overDueCount }}</h4>
 <app-footer *ngIf="hasRoute('/')"></app-footer>

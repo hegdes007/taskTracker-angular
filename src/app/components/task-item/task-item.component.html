@@ -3,13 +3,24 @@
   class="task"
   (dblclick)="onToggle(task)"
 >
-  <h3>
-    {{ task.text }}
+  <div>
+    <h3 id="{{ task.id!.toString() }}">
+      {{ task.text }}
+    </h3>
+    <input
+      type="checkbox"
+      name="taskCompletion"
+      (change)="onComplete(task)"
+      [(ngModel)]="isChecked"
+      [disabled]="isChecked ? true : false"
+    />
+  </div>
+  <p>
+    {{ task.day }}
     <fa-icon
       (click)="onDelete(task)"
       [ngStyle]="{ color: 'red' }"
       [icon]="faTimes"
     ></fa-icon>
-  </h3>
-  <p>{{ task.day }}</p>
+  </p>
 </div>

@@ -15,6 +15,7 @@
       type="date"
       name="day"
       [(ngModel)]="day"
+      [min]="minDate | date : 'yyyy-MM-dd'"
       id="day"
       placeholder="Add Day"
     />

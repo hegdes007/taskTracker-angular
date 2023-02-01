@@ -12,6 +12,7 @@ export class AddTaskComponent implements OnInit {
   text!: string;
   day!: string;
   reminder!: boolean;
+  minDate!: Date;
 
   showAddTask!: boolean;
   subscription!: Subscription;
@@ -24,7 +25,9 @@ export class AddTaskComponent implements OnInit {
       .subscribe((value) => (this.showAddTask = value));
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.minDate = new Date();
+  }
 
   onSubmit() {
     if (!this.text) {

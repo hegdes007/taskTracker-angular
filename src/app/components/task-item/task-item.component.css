@@ -9,8 +9,18 @@
   border-left: 5px solid green;
 }
 
-.task h3 {
+.task div {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.task p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task fa-icon {
+  margin-left: auto;
 }

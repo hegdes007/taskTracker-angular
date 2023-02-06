@@ -23,7 +23,7 @@ export class TasksComponent implements OnInit {
 
   ngOnInit(): void {
     // this.taskService.getTasks().subscribe((tasks) => (this.tasks = tasks));
-    this.tasks = JSON.parse(this.cookieService.get('tasks'));
+    this.setTask();
     Number.isNaN(parseInt(this.cookieService.get('completedTasks')))
       ? (this.completedCount = 0)
       : (this.completedCount = parseInt(
@@ -31,8 +31,17 @@ export class TasksComponent implements OnInit {
         ));
     this.nodue = 'No due tasks';
     this.dueTasks();
-    console.log('Hey you! I can see you here😏');
+    console.log('Hey you! I can see you there😏');
   }
+
+  setTask() {
+    if (this.cookieService.get('tasks').length > 0) {
+      this.tasks = JSON.parse(this.cookieService.get('tasks'));
+    } else {
+      this.cookieService.set('tasks', JSON.stringify(this.tasks));
+    }
+  }
+
   delteTask(task: Task) {
     // this.taskService
     //   .deleteTask(task)
@@ -42,6 +51,7 @@ export class TasksComponent implements OnInit {
     this.tasks = this.tasks.filter((t) => t.id !== task.id);
     this.cookieService.set('tasks', JSON.stringify(this.tasks));
   }
+
   toggleReminder(task: Task) {
     task.reminder = !task.reminder;
     this.tasks.map((t) => {
@@ -52,6 +62,7 @@ export class TasksComponent implements OnInit {
     this.cookieService.set('tasks', JSON.stringify(this.tasks));
     // this.taskService.updateReminder(task).subscribe();
   }
+
   addTask(task: Task) {
     // this.taskService.addTask(task).subscribe((task) => this.tasks.push(task));
     task.id = Math.floor(Math.random() * 10000) + 1;

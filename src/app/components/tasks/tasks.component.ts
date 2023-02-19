@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 // import { TaskService } from 'src/app/services/task.service';
 import { Task } from 'src/app/Task';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-tasks',
@@ -17,17 +16,16 @@ export class TasksComponent implements OnInit {
 
   constructor(
     // private taskService: TaskService,
-    private router: Router,
-    private cookieService: CookieService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     // this.taskService.getTasks().subscribe((tasks) => (this.tasks = tasks));
     this.setTask();
-    Number.isNaN(parseInt(this.cookieService.get('completedTasks')))
+    Number.isNaN(parseInt(localStorage.getItem('completedTasks')))
       ? (this.completedCount = 0)
       : (this.completedCount = parseInt(
-          this.cookieService.get('completedTasks')
+          localStorage.getItem('completedTasks')
         ));
     this.nodue = 'No due tasks';
     this.dueTasks();
@@ -35,10 +33,10 @@ export class TasksComponent implements OnInit {
   }
 
   setTask() {
-    if (this.cookieService.get('tasks').length > 0) {
-      this.tasks = JSON.parse(this.cookieService.get('tasks'));
+    if (localStorage.getItem('tasks') === null) {
+      localStorage.setItem('tasks', JSON.stringify(this.tasks));
     } else {
-      this.cookieService.set('tasks', JSON.stringify(this.tasks));
+      this.tasks = JSON.parse(localStorage.getItem('tasks'));
     }
   }
 
@@ -49,7 +47,7 @@ export class TasksComponent implements OnInit {
     //     () => (this.tasks = this.tasks.filter((t) => t.id !== task.id))
     //   );
     this.tasks = this.tasks.filter((t) => t.id !== task.id);
-    this.cookieService.set('tasks', JSON.stringify(this.tasks));
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
   toggleReminder(task: Task) {
@@ -59,7 +57,7 @@ export class TasksComponent implements OnInit {
         t = task;
       }
     });
-    this.cookieService.set('tasks', JSON.stringify(this.tasks));
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
     // this.taskService.updateReminder(task).subscribe();
   }
 
@@ -67,14 +65,14 @@ export class TasksComponent implements OnInit {
     // this.taskService.addTask(task).subscribe((task) => this.tasks.push(task));
     task.id = Math.floor(Math.random() * 10000) + 1;
     this.tasks.push(task);
-    this.cookieService.set('tasks', JSON.stringify(this.tasks));
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
   completeTask(task: Task) {
     document.getElementById(task.id!.toString())!.style.textDecoration =
       'line-through';
     this.completedCount = this.completedCount + 1;
-    this.cookieService.set('completedTasks', this.completedCount.toString());
+    localStorage.setItem('completedTasks', this.completedCount.toString());
     setTimeout(() => {
       this.delteTask(task);
       location.reload();

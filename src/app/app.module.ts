@@ -13,7 +13,6 @@ import { TaskItemComponent } from './components/task-item/task-item.component';
 import { AddTaskComponent } from './components/add-task/add-task.component';
 import { AboutComponent } from './components/about/about.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { CookieService } from 'ngx-cookie-service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
 
@@ -41,7 +40,6 @@ import { environment } from 'src/environments/environment';
       registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
-  providers: [CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
